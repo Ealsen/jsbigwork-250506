@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>© 2025 JavaScript大作业</title>
+    <link rel="stylesheet" href="style/main.css">
+    <script src="script/index.js"></script>
+    <style>
+        .main-content {
+            background-image: url(src/zbg-omoaWks3.gif);
+            background-position: center;
+        }
+
+        #calendar {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        #prev-month,
+        #next-month {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #prev-month:hover,
+        #next-month:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        #prev-month:hover,
+        #next-month:hover {
+            opacity: 0.8;
+        }
+
+        #month-year {
+            margin: 0;
+            font-size: 18px;
+            color: antiquewhite;
+        }
+
+        #days-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #days-table th {
+            padding: 10px;
+            color: #007bff;
+        }
+
+        #days-table td {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #e1e8ed;
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+
+        #days-table td:hover {
+            background-color: #e6f7ff;
+        }
+
+        #calendar-body tr:first-child td {
+            color: red;
+        }
+
+        .current-day {
+            background-color: #3498db !important;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="personalFrame"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 85%; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; background: white; overflow: hidden;"></iframe>
+    <div id="closeButton"
+        style="display: none; position: fixed; top: calc(50% - 35% - 20px); right: calc(50% - 30% - 20px); cursor: pointer; background: #fff; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 1001;">
+        ×</div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text" style="display: flex; align-items: center; cursor: pointer;"
+                onclick="showPersonal()">
+                <img src="src/logo.png" alt="logo">
+                <h3>Ealsen</h3>
+            </div>
+        </div>
+        <ul class="tree-menu" id="treeMenu">
+            <li><a href="index.html">首页</a></li>
+            <li>
+                <a onclick="toggleSubmenu(this)">大作业基本功能</a>
+                <ul class="submenu">
+                    <li><a href="message.html">留言板</a></li>
+                    <li><a href="./userForm.html">注册表单</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">扩展内容</a>
+                <ul class="submenu">
+                    <li><a href="./todolist.html">代办列表</a></li>
+                    <li><a href="./calendar.html">日历</a></li>
+                    <li><a href="./todysth.html">历史上的今天</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">更多</a>
+                <ul class="submenu">
+                    <li><a href="./callme.html">联系我</a></li>
+                    <li><a href="./about.html">关于</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">状态码页</a>
+                <ul class="submenu">
+                    <li>
+                        <a onclick="toggleSubmenu(this)">结果页</a>
+                        <ul class="submenu">
+                            <li><a href="./200.html">200</a></li>
+                            <li><a href="./201.html">201</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a onclick="toggleSubmenu(this)">异常页</a>
+                        <ul class="submenu">
+                            <li><a href="./404.html">404</a></li>
+                            <li><a href="./403.html">403</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><a href="https://github.com/Ealsen" style="text-decoration: none;color: aliceblue;">© 2025
+                    JavaScript大作业</a></p>
+        </div>
+    </div>
+
+
+
+    <div class="main-content">
+        <div id="calendar">
+            <div id="header">
+                <button id="prev-month">&lt;</button>
+                <h2 id="month-year"></h2>
+                <button id="next-month">&gt;</button>
+            </div>
+            <table id="days-table">
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 月份名称数组，用于显示月份
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+            "October", "November", "December"
+        ];
+
+        // 获取DOM元素引用
+        const prevMonthButton = document.getElementById('prev-month');
+        const nextMonthButton = document.getElementById('next-month');
+        const monthYearElement = document.getElementById('month-year');
+        const calendarBody = document.getElementById('calendar-body');
+
+        /**
+         * 显示指定年月的日历
+         * @param {number} year - 要显示的年份
+         * @param {number} month - 要显示的月份（0-11）
+         * @description 根据给定的年月生成并显示日历，包括：
+         * 1. 计算月份第一天是星期几
+         * 2. 计算月份总天数
+         * 3. 生成日历表格
+         * 4. 标记当前日期
+         */
+        function displayCalendar(year, month) {
+            const firstDay = new Date(year, month, 1).getDay(); // 获取月份第一天是星期几
+            const daysInMonth = new Date(year, month + 1, 0).getDate(); // 获取月份总天数
+            const currentDate = new Date();
+            const isCurrentMonth = year === currentDate.getFullYear() && month === currentDate.getMonth();
+
+            // 更新月份和年份显示
+            monthYearElement.textContent = `${monthNames[month]} ${year}`;
+            calendarBody.innerHTML = '';
+
+            let date = 1;
+            // 生成日历表格（6行7列）
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    if (i === 0 && j < firstDay) {
+                        cell.textContent = ''; // 月份第一天之前的空单元格
+                    } else if (date > daysInMonth) {
+                        cell.textContent = ''; // 月份最后一天之后的空单元格
+                    } else {
+                        cell.textContent = date;
+                        // 如果是当前日期，添加高亮样式
+                        if (isCurrentMonth && date === currentDate.getDate()) {
+                            cell.classList.add('current-day');
+                        }
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                calendarBody.appendChild(row);
+            }
+        }
+
+        // 当前显示的年份和月份
+        let currentYear, currentMonth;
+
+        /**
+         * 更新日历到当前月份
+         * @description 获取当前日期并显示对应月份的日历
+         */
+        function updateCalendar() {
+            const currentDate = new Date();
+            currentYear = currentDate.getFullYear();
+            currentMonth = currentDate.getMonth();
+            displayCalendar(currentYear, currentMonth);
+        }
+
+        /**
+         * 更新日期变量
+         * @description 更新全局的年份和月份变量为当前日期
+         */
+        function updateDateVariables() {
+            const currentDate = new Date();
+            currentYear = currentDate.getFullYear();
+            currentMonth = currentDate.getMonth();
+        }
+
+        // 上一月按钮点击事件处理
+        prevMonthButton.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            displayCalendar(currentYear, currentMonth);
+        });
+
+        // 下一月按钮点击事件处理
+        nextMonthButton.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            displayCalendar(currentYear, currentMonth);
+        });
+
+        // 页面加载完成时初始化日历
+        window.onload = updateCalendar;
+
+
+
+        /**
+         * iframe关闭
+         * @description 隐藏个人信息的iframe
+         * @tip 这里和其他的html不一样，因为我尝试将这个逻辑写到index.js时发现它居然不生效
+         * @tip 所以我只能将它写到html中，这样就可以生效了
+         * @tip 但是这样就比较啰嗦了，没办法，毕竟不知道问题在哪
+         */
+        // 关闭按钮点击事件
+        document.getElementById('closeButton').addEventListener('click', closePersonal);
+
+        // 点击iframe外部关闭
+        document.addEventListener('click', function (event) {
+            const frame = document.getElementById('personalFrame');
+            const closeBtn = document.getElementById('closeButton');
+            if (frame.style.display === 'block' &&
+                !frame.contains(event.target) &&
+                !closeBtn.contains(event.target) &&
+                !document.querySelector('.logo-text').contains(event.target)) {
+                closePersonal();
+            }
+        });
+
+        // ESC键关闭
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closePersonal();
+            }
+        });
+    </script>
+</body>
+
+</html>

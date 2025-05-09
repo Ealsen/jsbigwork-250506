@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人设置</title>
+    <!-- 引入Vue3和Vue Router的CDN -->
+    <script src="./src/vue3.cdn.js"></script>
+    <script src="./src/vue-router4.cdn.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        #app {
+            display: flex;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .aside-div {
+            width: 256px;
+            background-color: #001529;
+            padding: 20px 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            color: #fff;
+        }
+
+        .nav-item {
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: #1890ff;
+        }
+
+        .nav-item a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .content-div {
+            flex: 1;
+            padding: 24px;
+            background-color: #fff;
+        }
+
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .city-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .city-group select {
+            flex: 1;
+        }
+
+        .avatar {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-btn {
+            padding: 8px 16px;
+            background-color: #1890ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #40a9ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <aside class="aside-div">
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item" :class="{ active: currentRoute === 'basic' }">
+                        <router-link to="/basic">基本设置</router-link>
+                    </li>
+                    <li class="nav-item" :class="{ active: currentRoute === 'security' }">
+                        <router-link to="/security">安全设置</router-link>
+                    </li>
+                    <li class="nav-item" :class="{ active: currentRoute === 'binding' }">
+                        <router-link to="/binding">账号绑定</router-link>
+                    </li>
+                    <li class="nav-item" :class="{ active: currentRoute === 'notification' }">
+                        <router-link to="/notification">新消息通知</router-link>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="content-div">
+            <router-view></router-view>
+        </div>
+    </div>
+
+    <script>
+        // 定义组件
+        const BasicSettings = {
+            template: `
+                <div class="settings-container">
+                    <h2>基本设置</h2>
+                    <div class="form-group">
+                        <div class="avatar">
+                            <img :src="avatar" alt="头像">
+                        </div>
+                        <input type="file" ref="fileInput" style="display: none" @change="handleFileChange" accept="image/*">
+                        <button class="upload-btn" @click="$refs.fileInput.click()">更换头像</button>
+                    </div>
+                    <div class="form-group">
+                        <label>邮箱</label>
+                        <input type="email" v-model="email" placeholder="ealsenhuangfu@outlook.com">
+                    </div>
+                    <div class="form-group">
+                        <label>昵称</label>
+                        <input type="text" v-model="nickname" placeholder="Ealsen">
+                    </div>
+                    <div class="form-group">
+                        <label>个人简介</label>
+                        <textarea v-model="intro" placeholder="这个人有点高冷。" style="height:35px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>国家/地区</label>
+                        <select v-model="country">
+                            <option value="China">中国</option>
+                            <option value="Usa">美国</option>
+                            <option value="Uk">英国</option>
+                            <option value="Japan">日本</option>
+                        </select>
+                    </div>
+                        <div class="form-group" v-if="country==='China'">
+                        <label>所在城市</label>
+                        <div class="city-group">
+                            <select v-model="province">
+                                <option value="hubei">湖北省</option>
+                                <option value="hubei">湖南省</option>
+                                <option value="hubei">江西省</option>
+                            </select>
+                            <select v-model="city">
+                                <option value="jinzhou">荆州市</option>
+                                <option value="jingzhou">武汉市</option>
+                                <option value="jingzhou">长沙市</option>
+                                <option value="jingzhou">南昌市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>街道地址</label>
+                        <input type="text" v-model="address" placeholder="荆州区xxxx路xxxx号">
+                    </div>
+                    <div class="btn-div">
+                        <button class="upload-btn" @click="saveBtn">确定</button>
+                    </div>
+                    <div class="z0-div" style="height:0px"></div>
+                </div>
+            `,
+            data() {
+                return {
+                    avatar: './src/logo.png',
+                    email: 'ealsenhuangfu@outlook.com',
+                    nickname: 'Ealsen',
+                    intro: '这个人有点高冷。',
+                    country: 'China',
+                    province: 'hubei',
+                    city: 'jinzhou',
+                    address: '荆州区xxxx路xxxx号'
+                }
+            },
+            methods: {
+                handleFileChange(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.avatar = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+                saveBtn() {
+                    console.log('保存...')
+                    // 打印当前数据
+                    console.log(this.avatar)
+                    console.log(this.email)
+                    console.log(this.nickname)
+                    console.log(this.intro)
+                    console.log(this.country)
+                    console.log(this.province)
+                    console.log(this.city)
+                    console.log(this.address)
+                },
+                cancelBtn() {
+                    console.log('取消')
+                }
+            }
+        }
+
+        const SecuritySettings = {
+            template: `
+                <div class="settings-container">
+                    <h2>安全设置</h2>
+                    <div class="form-group">
+                        <label>当前密码</label>
+                        <input type="password" v-model="currentPassword" placeholder="请输入当前密码">
+                    </div>
+                    <div class="form-group">
+                        <label>新密码</label>
+                        <input type="password" v-model="newPassword" placeholder="请输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <label>确认新密码</label>
+                        <input type="password" v-model="confirmPassword" placeholder="请再次输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <button class="upload-btn" @click="updatePassword">更新密码</button>
+                    </div>
+                    <div class="z1-div" style="height:390px"></div>
+                </div>
+            `,
+            data() {
+                return {
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                }
+            },
+            methods: {
+                updatePassword() {
+                    // 实现密码更新逻辑
+                    console.log('更新密码')
+                }
+            }
+        }
+
+        const BindingSettings = {
+            template: `
+                <div class="settings-container">
+                    <h2>账号绑定</h2>
+                    <div class="form-group">
+                        <label>手机号码</label>
+                        <input type="tel" v-model="phone" placeholder="请输入手机号码">
+                        <button class="upload-btn" style="margin-top: 10px;" @click="bindPhone">绑定手机</button>
+                    </div>
+                    <div class="form-group">
+                        <label>微信账号</label>
+                        <input type="text" v-model="wechat" placeholder="请输入微信账号">
+                        <button class="upload-btn" style="margin-top: 10px;" @click="bindWechat">绑定微信</button>
+                    </div>
+                    <div class="form-group">
+                        <label>QQ账号</label>
+                        <input type="text" v-model="qq" placeholder="请输入QQ账号">
+                        <button class="upload-btn" style="margin-top: 10px;" @click="bindQQ">绑定QQ</button>
+                    </div>
+                    <div class="z2-div" style="height:250px"></div>
+                </div>
+            `,
+            data() {
+                return {
+                    phone: '',
+                    wechat: '',
+                    qq: ''
+                }
+            },
+            methods: {
+                bindPhone() {
+                    console.log('绑定手机')
+                },
+                bindWechat() {
+                    console.log('绑定微信')
+                },
+                bindQQ() {
+                    console.log('绑定QQ')
+                }
+            }
+        }
+
+        const NotificationSettings = {
+            template: `
+                <div class="settings-container">
+                    <h2>新消息通知</h2>
+                    <div class="form-group">
+                        <label>系统通知</label>
+                        <select v-model="systemNotification">
+                            <option value="all">接收所有通知</option>
+                            <option value="important">只接收重要通知</option>
+                            <option value="none">关闭通知</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>私信通知</label>
+                        <select v-model="messageNotification">
+                            <option value="all">接收所有私信</option>
+                            <option value="friends">只接收好友私信</option>
+                            <option value="none">关闭私信</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>通知提醒方式</label>
+                        <select v-model="notificationMethod">
+                            <option value="popup">弹窗提醒</option>
+                            <option value="sound">声音提醒</option>
+                            <option value="both">弹窗和声音</option>
+                        </select>
+                    </div>
+                    <div class="z3-div" style="height:390px"></div>
+                </div>
+            `,
+            data() {
+                return {
+                    systemNotification: 'all',
+                    messageNotification: 'all',
+                    notificationMethod: 'popup'
+                }
+            }
+        }
+
+        // 定义路由
+        const routes = [
+            { path: '/', redirect: '/basic' }, // 重定向到基本设置
+            { path: '/basic', component: BasicSettings }, // 默认路由
+            { path: '/security', component: SecuritySettings }, // 安全设置
+            { path: '/binding', component: BindingSettings }, // 账号绑定
+            { path: '/notification', component: NotificationSettings } // 新消息通知
+        ]
+
+        const router = VueRouter.createRouter({
+            history: VueRouter.createWebHashHistory(),
+            routes
+        })
+
+        // 创建Vue应用
+        const app = Vue.createApp({
+            data() {
+                return {
+                    currentRoute: ''
+                }
+            },
+            computed: {
+                currentRoutePath() {
+                    return this.$route.path.substring(1)
+                }
+            },
+            watch: {
+                currentRoutePath: {
+                    immediate: true,
+                    handler(newPath) {
+                        this.currentRoute = newPath
+                    }
+                }
+            }
+        })
+
+        app.use(router)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

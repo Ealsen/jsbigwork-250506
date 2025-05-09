@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/main.css">
+    <title>© 2025 JavaScript大作业</title>
+    <script src="script/index.js"></script>
+</head>
+
+<body>
+    <iframe id="personalFrame"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 85%; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; background: white; overflow: hidden;"></iframe>
+    <div id="closeButton"
+        style="display: none; position: fixed; top: calc(50% - 35% - 20px); right: calc(50% - 30% - 20px); cursor: pointer; background: #fff; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 1001;">
+        ×</div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text" style="display: flex; align-items: center; cursor: pointer;"
+                onclick="showPersonal()">
+                <img src="src/logo.png" alt="logo">
+                <h3>Ealsen</h3>
+            </div>
+        </div>
+        <ul class="tree-menu" id="treeMenu">
+            <li><a href="index.html">首页</a></li>
+            <li>
+                <a onclick="toggleSubmenu(this)">大作业基本功能</a>
+                <ul class="submenu">
+                    <li><a href="message.html">留言板</a></li>
+                    <li><a href="./userForm.html">注册表单</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">扩展内容</a>
+                <ul class="submenu">
+                    <li><a href="./todolist.html">代办列表</a></li>
+                    <li><a href="./calendar.html">日历</a></li>
+                    <li><a href="./todysth.html">历史上的今天</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">更多</a>
+                <ul class="submenu">
+                    <li><a href="./callme.html">联系我</a></li>
+                    <li><a href="./about.html">关于</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">状态码页</a>
+                <ul class="submenu">
+                    <li>
+                        <a onclick="toggleSubmenu(this)">结果页</a>
+                        <ul class="submenu">
+                            <li><a href="./200.html">200</a></li>
+                            <li><a href="./201.html">201</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a onclick="toggleSubmenu(this)">异常页</a>
+                        <ul class="submenu">
+                            <li><a href="./404.html">404</a></li>
+                            <li><a href="./403.html">403</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><a href="https://github.com/Ealsen" style="text-decoration: none;color: aliceblue;">© 2025
+                    JavaScript大作业</a></p>
+        </div>
+    </div>
+
+
+    <div class="main-content" style="background-image: url(src/zbg-omoaWks3.gif);background-position: center;">
+        <div id="text-container"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 24px; color: #333;">
+            <span id="display-text"></span><span class="cursor">|</span>
+        </div>
+        <h1 style="display: flex;font-size: 50px;margin-left: 35%;margin-top: 20%;">VSCode，启动！</h1>
+    </div>
+    <style>
+        .cursor {
+            animation: blink 0.7s infinite;
+            font-weight: bold;
+            color: #333;
+            margin-left: 3px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+
+<script>
+    // 显示文本数组，包含要轮播显示的名言和标题
+    const texts = [
+        "Ealsen 的JavaScript大作业",
+        "计算机科学的目标是做出一个装置，能够处理前人未遇到的问题。 —— 约翰·冯·诺依曼",
+        "在理论计算机科学中，没有任何重要的问题是一个人能够解决的。 —— 艾伦·图灵",
+        "简单是可靠的先决条件。 —— 艾兹格·迪科斯彻",
+        "这不是一个bug，这是一个未列入文档的特性。 —— 丹尼斯·里奇",
+        "编程是一种艺术，因为它带给人创造的快乐。 —— 林纳斯·托瓦兹"
+    ];
+
+    // 获取显示文本的DOM元素
+    const displayText = document.getElementById('display-text');
+    // 当前正在显示的字符索引
+    let charIndex = 0;
+    // 当前正在显示的文本索引
+    let currentText = 0;
+
+    /**
+     * 打字机动画效果函数
+     * 逐个字符显示当前文本，完成后等待3秒开始淡出效果
+     */
+    function animateText() {
+        if (charIndex <= texts[currentText].length) {
+            // 显示从0到当前字符索引的子字符串
+            displayText.textContent = texts[currentText].substring(0, charIndex);
+            charIndex++;
+            // 每100毫秒显示下一个字符
+            setTimeout(animateText, 100);
+        } else {
+            // 文本完全显示后，等待3秒开始淡出
+            setTimeout(() => {
+                fadeOutText();
+            }, 3000);
+        }
+    }
+
+    /**
+     * 文本淡出效果函数
+     * 通过逐渐降低透明度实现淡出效果，完成后切换到下一段文本
+     */
+    function fadeOutText() {
+        let opacity = 1; // 初始透明度
+        const fadeEffect = setInterval(() => {
+            if (opacity > 0) {
+                // 每次减少0.1透明度
+                opacity -= 0.1;
+                displayText.style.opacity = opacity;
+            } else {
+                // 淡出完成，清除定时器
+                clearInterval(fadeEffect);
+                // 重置文本和透明度
+                displayText.textContent = '';
+                displayText.style.opacity = 1;
+                // 重置字符索引
+                charIndex = 0;
+                // 循环切换到下一段文本
+                currentText = (currentText + 1) % texts.length;
+                // 开始新的打字动画
+                animateText();
+            }
+        }, 50); // 每50毫秒更新一次透明度
+    }
+
+    // 启动打字机动画
+    animateText();
+</script>
+</script>
+
+</html>

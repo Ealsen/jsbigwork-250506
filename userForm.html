@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/main.css">
+    <title>© 2025 JavaScript大作业</title>
+    <script src="script/index.js"></script>
+    <style>
+        .main-content {
+            background-image: url(src/zbg-omoaWks3.gif);
+            background-position: center;
+        }
+
+        .user-form {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 36px;
+            font-family: sans-serif;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .form-container div {
+            margin-bottom: 15px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="file"],
+        .form-container select {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .form-container button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .form-container button:hover {
+            background-color: #2980b9;
+        }
+
+        .info-display {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+
+        .info-display h3 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: sans-serif;
+            text-align: left;
+        }
+
+        #displayContent {
+            font-size: 16px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="personalFrame"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 85%; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; background: white; overflow: hidden;"></iframe>
+    <div id="closeButton"
+        style="display: none; position: fixed; top: calc(50% - 35% - 20px); right: calc(50% - 30% - 20px); cursor: pointer; background: #fff; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 1001;">
+        ×</div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text" style="display: flex; align-items: center; cursor: pointer;"
+                onclick="showPersonal()">
+                <img src="src/logo.png" alt="logo">
+                <h3>Ealsen</h3>
+            </div>
+        </div>
+        <ul class="tree-menu" id="treeMenu">
+            <li><a href="index.html">首页</a></li>
+            <li>
+                <a onclick="toggleSubmenu(this)">大作业基本功能</a>
+                <ul class="submenu">
+                    <li><a href="message.html">留言板</a></li>
+                    <li><a href="./userForm.html">注册表单</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">扩展内容</a>
+                <ul class="submenu">
+                    <li><a href="./todolist.html">代办列表</a></li>
+                    <li><a href="./calendar.html">日历</a></li>
+                    <li><a href="./todysth.html">历史上的今天</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">更多</a>
+                <ul class="submenu">
+                    <li><a href="./callme.html">联系我</a></li>
+                    <li><a href="./about.html">关于</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">状态码页</a>
+                <ul class="submenu">
+                    <li>
+                        <a onclick="toggleSubmenu(this)">结果页</a>
+                        <ul class="submenu">
+                            <li><a href="./200.html">200</a></li>
+                            <li><a href="./201.html">201</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a onclick="toggleSubmenu(this)">异常页</a>
+                        <ul class="submenu">
+                            <li><a href="./404.html">404</a></li>
+                            <li><a href="./403.html">403</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><a href="https://github.com/Ealsen" style="text-decoration: none;color: aliceblue;">© 2025
+                    JavaScript大作业</a></p>
+        </div>
+    </div>
+
+
+
+    <div class="main-content">
+        <div class="user-form">
+            <div class="form-container">
+                <h2>注册表单</h2>
+                <form id="registerForm">
+                    <div>
+                        <label for="avatar">头像上传:</label>
+                        <input type="file" id="avatar" name="avatar" accept="image/*">
+                    </div>
+                    <div>
+                        <label for="email">邮箱:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="nickname">昵称:</label>
+                        <input type="text" id="nickname" name="nickname" required>
+                    </div>
+                    <div>
+                        <label for="country">国家/地区:</label>
+                        <select id="country" name="country">
+                            <option value="China">中国</option>
+                            <option value="Japan">日本</option>
+                            <option value="Korea">韩国</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="province">省市:</label>
+                        <select id="province" name="province">
+                            <option value="hubei">湖北</option>
+                            <option value="henan">河南</option>
+                            <option value="hunan">湖南</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="street">街道:</label>
+                        <input type="text" id="street" name="street">
+                    </div>
+                    <div>
+                        <button type="button" onclick="submitForm()">提交</button>
+                        <button type="button" onclick="exportToJSON()" style="margin-left: 10px;">导出为JSON</button>
+                    </div>
+                </form>
+            </div>
+            <div class="info-display" id="infoDisplay">
+                <h3>信息展示区</h3>
+                <div id="displayContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('registerForm');
+            const formData = new FormData(form);  // 使用 FormData 对象来获取表单数据
+            const displayContent = document.getElementById('displayContent');
+            displayContent.style.textAlign = 'left'; // 设置文本对齐方式为左对齐
+            displayContent.style.fontSize = '16px'; // 设置字体大小
+            let infoHtml = '<ul>'; // 初始化 HTML 列表
+            formData.forEach((value, key) => { // 遍历表单数据
+                if (key === 'avatar') { // 如果是头像文件
+                    const reader = new FileReader(); // 创建 FileReader 对象
+                    reader.onload = function (e) { // 读取文件并设置图片样式
+                        infoHtml += `<p><strong>${key}:</strong> <img src="${e.target.result}" style="max-width: 100px; max-height: 100px;"></p>`;
+                        displayContent.innerHTML = infoHtml;
+                    };
+                    reader.readAsDataURL(value); // 读取文件为 Data URL
+                } else {
+                    infoHtml += `<p><strong>${key}:</strong> ${value}</p>`; // 其他数据直接添加到 HTML 中
+                }
+            });
+            infoHtml += '</ul>'; // 结束列表
+            displayContent.innerHTML = infoHtml; // 更新信息展示区的内容
+        }
+
+        /**
+         * 将表单数据导出为JSON文件并下载
+         * 功能包括：
+         * 1. 收集表单数据
+         * 2. 处理头像文件（如果存在）
+         * 3. 将数据转换为JSON格式
+         * 4. 创建下载链接并触发下载
+         */
+        function exportToJSON() {
+            // 获取表单元素和表单数据
+            const form = document.getElementById('registerForm');
+            const formData = new FormData(form);
+            const jsonData = {}; // 存储最终JSON数据的对象
+
+            // 获取头像文件（如果有）
+            const avatarFile = document.getElementById('avatar').files[0];
+
+            // 处理头像文件（如果存在）
+            if (avatarFile) {
+                const reader = new FileReader();
+                // 文件读取完成后回调
+                reader.onload = function (e) {
+                    // 将头像转换为Base64格式并存入JSON对象
+                    jsonData['avatar'] = e.target.result;
+                    // 处理其他表单字段
+                    processOtherFields();
+                };
+                // 开始读取文件内容（Base64格式）
+                reader.readAsDataURL(avatarFile);
+            } else {
+                // 如果没有头像文件，直接处理其他字段
+                processOtherFields();
+            }
+
+            /**
+             * 处理表单中的其他字段并完成JSON文件下载
+             */
+            function processOtherFields() {
+                // 遍历表单数据（排除已处理的头像字段）
+                formData.forEach((value, key) => {
+                    if (key !== 'avatar') {
+                        jsonData[key] = value;
+                    }
+                });
+
+                // 将数据转换为格式化的JSON字符串
+                const jsonStr = JSON.stringify(jsonData, null, 2);
+
+                // 创建Blob对象（JSON文件内容）
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                // 生成下载URL
+                const url = URL.createObjectURL(blob);
+
+                // 创建下载链接并触发下载
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'userformdata.json'; // 设置下载文件名
+                document.body.appendChild(a); // 临时添加到DOM
+                a.click(); // 触发下载
+                document.body.removeChild(a); // 移除临时元素
+                URL.revokeObjectURL(url); // 释放URL对象
+            }
+        }
+    </script>
+</body>
+
+</html>

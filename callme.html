@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/main.css">
+    <title>© 2025 JavaScript大作业</title>
+    <script src="script/index.js"></script>
+</head>
+
+<body>
+    <iframe id="personalFrame"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 85%; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; background: white; overflow: hidden;"></iframe>
+    <div id="closeButton"
+        style="display: none; position: fixed; top: calc(50% - 35% - 20px); right: calc(50% - 30% - 20px); cursor: pointer; background: #fff; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 1001;">
+        ×</div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text" style="display: flex; align-items: center; cursor: pointer;"
+                onclick="showPersonal()">
+                <img src="src/logo.png" alt="logo">
+                <h3>Ealsen</h3>
+            </div>
+        </div>
+        <ul class="tree-menu" id="treeMenu">
+            <li><a href="index.html">首页</a></li>
+            <li>
+                <a onclick="toggleSubmenu(this)">大作业基本功能</a>
+                <ul class="submenu">
+                    <li><a href="message.html">留言板</a></li>
+                    <li><a href="./userForm.html">注册表单</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">扩展内容</a>
+                <ul class="submenu">
+                    <li><a href="./todolist.html">代办列表</a></li>
+                    <li><a href="./calendar.html">日历</a></li>
+                    <li><a href="./todysth.html">历史上的今天</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">更多</a>
+                <ul class="submenu">
+                    <li><a href="./callme.html">联系我</a></li>
+                    <li><a href="./about.html">关于</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">状态码页</a>
+                <ul class="submenu">
+                    <li>
+                        <a onclick="toggleSubmenu(this)">结果页</a>
+                        <ul class="submenu">
+                            <li><a href="./200.html">200</a></li>
+                            <li><a href="./201.html">201</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a onclick="toggleSubmenu(this)">异常页</a>
+                        <ul class="submenu">
+                            <li><a href="./404.html">404</a></li>
+                            <li><a href="./403.html">403</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><a href="https://github.com/Ealsen" style="text-decoration: none;color: aliceblue;">© 2025
+                    JavaScript大作业</a></p>
+        </div>
+    </div>
+
+    <div class="main-content" style="background-image: url(src/zbg-omoaWks3.gif);background-position: center;">
+        <div class="work-info"
+            style="background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 10px; margin: 50px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <h1 style="text-align: center; color: #333; margin-bottom: 30px; font-size: 36px;">联系我</h1>
+            <div style="font-size: 18px; line-height: 1.6; color: #444;">
+                <p style="margin-bottom: 20px;">如果你有任何问题或建议，请随时通过以下方式联系我：</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin: 15px 0;">Email: <a href="mailto:ealsenhuangfu@outlook.com"
+                            style="text-decoration: none; color: #2c3e50; font-weight: bold;">ealsenhuangfu@outlook.com</a>
+                    </li>
+                    <li style="margin: 15px 0;">GitHub: <a href="https://github.com/Ealsen"
+                            style="text-decoration: none; color: #2c3e50; font-weight: bold;">Ealsen</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+</script>
+
+</html>

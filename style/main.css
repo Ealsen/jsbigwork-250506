@@ -1,0 +1,191 @@
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Microsoft YaHei", Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* 主内容区域样式 */
+.main-content {
+  flex: 1;
+  padding: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 5px 5px 5px 255px;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+/* 主内容区域的标题样式 */
+.main-content h2 {
+  color: #1890ff;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* 博客列表样式 */
+.blog-list .blog-item {
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.blog-list .blog-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+/* 表单样式 */
+.blog-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.blog-form input,
+.blog-form textarea,
+.register-form input {
+  padding: 8px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.blog-form textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+button {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: #40a9ff;
+}
+
+/* 状态页面样式 */
+.status-page {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.status-page.success {
+  color: #52c41a;
+}
+
+.status-page.error {
+  color: #ff4d4f;
+}
+
+/* 左侧菜单样式 */
+.sidebar {
+  width: 250px;
+  background-color: #001529;
+  color: #fff;
+  padding: 0;
+  transition: all 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #15395b;
+}
+
+.sidebar-header img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.sidebar-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sidebar-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+  height: 50px;
+  border-top: 1px solid #15395b;
+  background-color: #001529;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tree-menu {
+  list-style: none;
+  padding: 10px 0;
+}
+
+.tree-menu li {
+  margin: 0;
+}
+
+.tree-menu a {
+  text-decoration: none;
+  color: #a6adb4;
+  cursor: pointer;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.tree-menu a:hover {
+  color: #fff;
+  background-color: #1890ff;
+}
+
+.tree-menu a i {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.tree-menu .submenu {
+  margin-left: 0;
+  display: none;
+  background-color: #000c17;
+}
+
+.tree-menu .submenu a {
+  padding-left: 40px;
+}
+
+.tree-menu .active > a {
+  color: #fff;
+  background-color: #1890ff;
+}
+
+.tree-menu .active > .submenu {
+  display: block;
+}

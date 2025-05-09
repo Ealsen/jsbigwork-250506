@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/main.css">
+    <title>© 2025 JavaScript大作业</title>
+    <script src="script/index.js"></script>
+    <style>
+        .main-content {
+            background-image: url(src/zbg-omoaWks3.gif);
+            background-position: center;
+        }
+
+        #outside {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #outside h3 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 36px;
+            font-family: sans-serif;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        #outside .comment1 {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 15px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e1e8ed;
+            font-family: sans-serif;
+        }
+
+        #outside .comment1 time {
+            float: right;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        #outside .comment1 span {
+            color: #2980b9;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        #outside .comment1 p {
+            font-size: 16px;
+            color: #34495e;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        #outside h4 {
+            color: #34495e;
+            font-size: 24px;
+            margin: 30px 0 20px;
+            font-family: sans-serif;
+        }
+
+        #outside #addComment {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        #outside #name {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        #outside #name:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        #outside #comContent {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        #outside #comContent:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        #addComment button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            float: right;
+        }
+
+        #addComment button:hover {
+            background-color: #2980b9;
+        }
+
+        .del {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .del:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="personalFrame"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 85%; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; background: white; overflow: hidden;"></iframe>
+    <div id="closeButton"
+        style="display: none; position: fixed; top: calc(50% - 35% - 20px); right: calc(50% - 30% - 20px); cursor: pointer; background: #fff; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 1001;">
+        ×</div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text" style="display: flex; align-items: center; cursor: pointer;"
+                onclick="showPersonal()">
+                <img src="src/logo.png" alt="logo">
+                <h3>Ealsen</h3>
+            </div>
+        </div>
+        <ul class="tree-menu" id="treeMenu">
+            <li><a href="index.html">首页</a></li>
+            <li>
+                <a onclick="toggleSubmenu(this)">大作业基本功能</a>
+                <ul class="submenu">
+                    <li><a href="message.html">留言板</a></li>
+                    <li><a href="./userForm.html">注册表单</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">扩展内容</a>
+                <ul class="submenu">
+                    <li><a href="./todolist.html">代办列表</a></li>
+                    <li><a href="./calendar.html">日历</a></li>
+                    <li><a href="./todysth.html">历史上的今天</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">更多</a>
+                <ul class="submenu">
+                    <li><a href="./callme.html">联系我</a></li>
+                    <li><a href="./about.html">关于</a></li>
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleSubmenu(this)">状态码页</a>
+                <ul class="submenu">
+                    <li>
+                        <a onclick="toggleSubmenu(this)">结果页</a>
+                        <ul class="submenu">
+                            <li><a href="./200.html">200</a></li>
+                            <li><a href="./201.html">201</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a onclick="toggleSubmenu(this)">异常页</a>
+                        <ul class="submenu">
+                            <li><a href="./404.html">404</a></li>
+                            <li><a href="./403.html">403</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><a href="https://github.com/Ealsen" style="text-decoration: none;color: aliceblue;">© 2025
+                    JavaScript大作业</a></p>
+        </div>
+    </div>
+
+
+    <div class="main-content">
+        <div id="outside">
+            <h3>全部留言</h3>
+            <div id="comment">
+            </div>
+            <h4>发表留言</h4>
+            <div id="addComment">
+                昵    称：<input type="text" id="name" />
+                <br /><br />
+                留言内容:<textarea id="comContent"></textarea>
+                <button id='tjpl'>发表留言</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const comment = document.querySelector('#comment');
+        const ips = document.getElementById('name'); // 明确获取昵称输入框
+        const textarea = document.getElementById('comContent'); // 明确获取留言内容文本区域
+        const tjpl = document.getElementById('tjpl');
+
+        // 从localStorage加载留言数据
+        function loadComments() {
+            const savedComments = localStorage.getItem('comments');
+            if (savedComments) {
+                const comments = JSON.parse(savedComments);
+                comments.forEach(commentData => {
+                    createCommentElement(commentData.name, commentData.content, commentData.time);
+                });
+            }
+        }
+
+        // 保存留言到localStorage
+        function saveComments() {
+            const comments = [];
+            document.querySelectorAll('.comment1').forEach(commentEl => {
+                comments.push({
+                    name: commentEl.querySelector('span:nth-child(2)').textContent,
+                    content: commentEl.querySelector('p').textContent,
+                    time: commentEl.querySelector('time').textContent
+                });
+            });
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // 创建留言元素
+        function createCommentElement(name, content, time) {
+            const divs = document.createElement('div');
+            divs.className = 'comment1';
+
+            // 创建'网友昵称:'标签
+            const spans = document.createElement('span');
+            spans.textContent = '网友昵称:';
+            divs.appendChild(spans);
+
+            // 创建用户昵称显示区域并设置样式
+            const spanName = document.createElement('span');
+            spanName.textContent = name;
+            spanName.style.marginLeft = '5px';
+            spanName.style.fontWeight = 'bold';
+            spanName.style.color = '#5979B2';
+            divs.appendChild(spanName);
+
+            // 创建时间显示区域并设置样式
+            const timeEl = document.createElement('time');
+            timeEl.textContent = time || new Date().toLocaleString();
+            timeEl.style.float = 'right';
+            timeEl.style.color = 'black';
+            divs.appendChild(timeEl);
+
+            // 创建留言内容区域并设置样式
+            const ps = document.createElement('p');
+            ps.textContent = content;
+            ps.style.fontSize = '16px';
+            ps.style.color = 'black';
+            divs.appendChild(ps);
+
+            // 创建删除按钮并设置样式
+            const del = document.createElement('button');
+            del.className = 'del';
+            del.textContent = '删除';
+            del.style.width = '100px';
+            del.style.height = '35px';
+            del.style.backgroundColor = '#2D46A3';
+            del.style.color = 'white';
+            del.style.border = 'hidden';
+            del.style.padding = '0px';
+            divs.appendChild(del);
+
+            // 为删除按钮添加点击事件
+            del.onclick = function () {
+                comment.removeChild(this.parentNode);
+                saveComments(); // 删除后更新localStorage
+            };
+
+            // 将留言添加到留言区
+            comment.appendChild(divs);
+        }
+
+        // 页面加载时恢复留言数据
+        window.addEventListener('load', loadComments);
+
+        tjpl.onclick = function () {
+            if (ips.value.trim() === '' || textarea.value.trim() === '') { // 使用 trim() 去除前后空格
+                alert("输入不能为空！");
+                return;
+            }
+
+            // 创建新留言
+            createCommentElement(ips.value, textarea.value);
+
+            // 保存到localStorage
+            saveComments();
+
+            // 清空输入框
+            ips.value = '';
+            textarea.value = '';
+        };
+    </script>
+</body>
+
+</html>

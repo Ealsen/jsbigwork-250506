@@ -1,0 +1,55 @@
+<div class="settings-container">
+    <h2>基本设置</h2>
+    <div class="form-group">
+        <div class="avatar">
+            <img :src="avatar" alt="头像">
+        </div>
+        <input type="file" ref="fileInput" style="display: none" @change="handleFileChange" accept="image/*">
+        <button class="upload-btn" @click="$refs.fileInput.click()">更换头像</button>
+    </div>
+    <div class="form-group">
+        <label>邮箱</label>
+        <input type="email" v-model="email" placeholder="ealsenhuangfu@outlook.com">
+    </div>
+    <div class="form-group">
+        <label>昵称</label>
+        <input type="text" v-model="nickname" placeholder="Ealsen">
+    </div>
+    <div class="form-group">
+        <label>个人简介</label>
+        <textarea v-model="intro" placeholder="这个人有点高冷。" style="height:35px;"></textarea>
+    </div>
+    <div class="form-group">
+        <label>国家/地区</label>
+        <select v-model="country">
+            <option value="China">中国</option>
+            <option value="Usa">美国</option>
+            <option value="Uk">英国</option>
+            <option value="Japan">日本</option>
+        </select>
+    </div>
+    <div class="form-group" v-if="country==='China'">
+        <label>所在城市</label>
+        <div class="city-group">
+            <select v-model="province">
+                <option value="hubei">湖北省</option>
+                <option value="hubei">湖南省</option>
+                <option value="hubei">江西省</option>
+            </select>
+            <select v-model="city">
+                <option value="jinzhou">荆州市</option>
+                <option value="jingzhou">武汉市</option>
+                <option value="jingzhou">长沙市</option>
+                <option value="jingzhou">南昌市</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>街道地址</label>
+        <input type="text" v-model="address" placeholder="荆州区xxxx路xxxx号">
+    </div>
+    <div class="btn-div">
+        <button class="upload-btn" @click="saveBtn">确定</button>
+    </div>
+    <div class="z0-div" style="height:0px"></div>
+</div>
