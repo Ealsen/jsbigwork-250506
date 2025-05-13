@@ -84,4 +84,25 @@ window.onload = function () {
             closePersonal();
         }
     });
-};
+
+
+    // 其他动态效果
+
+    // sakura
+    const script = document.createElement('script');
+    script.src = 'src\\sakura-less.js';
+    document.head.appendChild(script);
+
+    // jQuery
+    const script1 = document.createElement('script');
+    script1.src = 'src\\jquery-3.7.1.min.js';
+    document.head.appendChild(script1);
+
+    // myhkw
+    const script2 = document.createElement('script');
+    script2.src = 'https://myhkw.cn/api/player/demo';
+    script2.setAttribute('id', 'myhk');
+    script2.setAttribute('key', 'demo');
+    script2.setAttribute('m', '1');
+    document.head.appendChild(script2);
+}; 
