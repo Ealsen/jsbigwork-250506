@@ -24,6 +24,7 @@ function initMenuAnimation() {
     });
 }
 
+
 /**
  * 显示个人信息页面的函数
  * 该函数通过iframe模态框的方式展示个人信息页面
@@ -41,6 +42,7 @@ function showPersonal() {
     closeBtn.style.display = 'block';
 }
 
+
 /**
  * 关闭个人信息页面的函数
  * 该函数负责隐藏iframe模态框和清理相关资源
@@ -57,6 +59,29 @@ function closePersonal() {
     closeBtn.style.display = 'none';
     frame.src = '';
 }
+
+
+// 其他动态效果
+function otherExternalFunctions() {
+    // sakura
+    const script = document.createElement('script');
+    script.src = 'src\\sakura-less.js';
+    document.head.appendChild(script);
+
+    // jQuery
+    const script1 = document.createElement('script');
+    script1.src = 'src\\jquery-3.7.1.min.js';
+    document.head.appendChild(script1);
+
+    // myhkw
+    const script2 = document.createElement('script');
+    script2.src = 'https://myhkw.cn/api/player/demo';
+    script2.setAttribute('id', 'myhk');
+    script2.setAttribute('key', 'demo');
+    script2.setAttribute('m', '1');
+    document.head.appendChild(script2);
+}
+
 
 // 页面加载时初始化
 window.onload = function () {
@@ -85,24 +110,6 @@ window.onload = function () {
         }
     });
 
-
     // 其他动态效果
-
-    // sakura
-    const script = document.createElement('script');
-    script.src = 'src\\sakura-less.js';
-    document.head.appendChild(script);
-
-    // jQuery
-    const script1 = document.createElement('script');
-    script1.src = 'src\\jquery-3.7.1.min.js';
-    document.head.appendChild(script1);
-
-    // myhkw
-    const script2 = document.createElement('script');
-    script2.src = 'https://myhkw.cn/api/player/demo';
-    script2.setAttribute('id', 'myhk');
-    script2.setAttribute('key', 'demo');
-    script2.setAttribute('m', '1');
-    document.head.appendChild(script2);
+    otherExternalFunctions();
 }; 
